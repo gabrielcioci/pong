@@ -1,0 +1,266 @@
+@import 'variables';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'Helvetica Neue';
+}
+
+html {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  color: $babyPowder;
+
+  * {
+    outline: none !important;
+    box-sizing: border-box;
+  }
+}
+
+.App {
+  height: 100vh;
+  width: 100%;
+  background: $richBlack;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .btn {
+    line-height: 4rem;
+    background: rgba($orange, .1);
+    font-size: 1.8rem;
+    letter-spacing: .1rem;
+    color: $orange;
+    padding: 0 3.2rem;
+    border-radius: .4rem;
+    transition: all $animTimingTwo;
+    cursor: pointer;
+    border: .2rem solid $orange;
+    outline: none;
+    text-align: center;
+    width: fit-content;
+    text-decoration: none;
+
+    &:hover {
+      background: $orange;
+      color: $babyPowder;
+    }
+  }
+
+  .btn-turquoise {
+    background: rgba($turquoise, .1);
+    color: $turquoise;
+    border: .2rem solid $turquoise;
+
+    &:hover {
+      background: rgba($turquoise, .3);
+      color: $babyPowder;
+    }
+  }
+
+  .btn-green {
+    background: rgba($aliceBlue, .1);
+    color: $aliceBlue;
+    border: .2rem solid $aliceBlue;
+
+    &:hover {
+      background: rgba($aliceBlue, .3);
+      color: $babyPowder;
+    }
+  }
+
+  .welcome-screen {
+    display: flex;
+
+    input {
+      font-size: 2rem;
+      line-height: 4.8rem;
+      margin-bottom: 2.4rem;
+      margin-top: 1.2rem;
+      background: rgba(white, .05);
+      padding: 0 1.6rem;
+      color: $babyPowder;
+      border: .1rem solid transparent;
+      border-radius: .8rem;
+      transition: all $animTimingTwo;
+
+      &:hover {
+        border-color: rgba(white, .1);
+      }
+
+      &:focus {
+        border-color: $turquoise;
+      }
+    }
+
+    h1 {
+      font-size: 4.8rem;
+      line-height: 6rem;
+      text-align: center;
+      position: absolute;
+      top: 4rem;
+      margin: 0;
+      left: 50%;
+      transform: translate(-50%);
+    }
+
+    h2 {
+      text-align: left;
+      margin: 0;
+    }
+
+    .rooms {
+      display: flex;
+      flex-direction: column;
+      min-width: 30rem;
+      margin-right: 6.8rem;
+
+      .room {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        align-items: center;
+        background: rgba(white, .05);
+        border: .1rem solid rgba(white, .1);
+        margin-top: 1.2rem;
+
+        h4, p {
+          margin: 0;
+        }
+
+        .btn {
+          line-height: 2.4rem;
+          font-size: 1.4rem;
+          padding: 0 1rem;
+          border-width: .1rem;
+          border-radius: 0;
+        }
+      }
+    }
+
+    .create {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  .pong-room {
+    .game-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .room-name {
+        position: relative;
+        width: 60%;
+        text-align: center;
+
+        span {
+          position: absolute;
+          display: flex;
+          top: -2.8rem;
+          z-index: 5;
+          left: 50%;
+          font-size: 2.4rem;
+          font-weight: 700;
+          min-width: fit-content;
+          color: rgba($turquoise, .1);
+          transform: translate(-50%);
+        }
+
+        h2 {
+          text-align: center;
+          color: white;
+          width: 100%;
+          margin: 1rem 0;
+          justify-content: center;
+        }
+      }
+
+      h2, h1 {
+        margin: 0;
+      }
+
+      h2 {
+        color: $turquoise;
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .ready {
+          line-height: 2.4rem;
+          font-size: 1.4rem;
+          padding: 0 1.2rem;
+          margin-right: 1.6rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all .1s ease-in-out;
+        }
+      }
+
+      .player-two {
+        color: $imperialRed;
+        justify-content: flex-start;
+
+        .ready {
+          margin-left: 1.6rem;
+          margin-right: 0;
+        }
+      }
+
+      h1 {
+        font-size: 4.8rem;
+      }
+    }
+
+    .table {
+      border: .2rem solid $babyPowder;
+      background: $richBlack;
+      position: relative;
+      box-sizing: content-box;
+
+      .p2-paddle, .p1-paddle, .ball, .divider {
+        content: '';
+        display: flex;
+        background: $imperialRed;
+        position: absolute;
+        transition: all .1s ease-in-out;
+      }
+
+      .p1-paddle {
+        background: $turquoise;
+        border-radius: .8rem;
+      }
+
+      .p2-paddle {
+        border-radius: .8rem;
+      }
+
+      .ball {
+        background: white;
+        border-radius: 20px;
+        transition: none;
+      }
+
+      .divider {
+        height: 100%;
+        content: '';
+        left: calc(50% - 1px);
+        border-left: 2px dashed $babyPowder;
+        background: transparent;
+      }
+    }
+  }
+}

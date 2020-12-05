@@ -1,0 +1,139 @@
+/*Colors*/
+$richBlack: #011627;
+$imperialRed: #f71735;
+$cultured: #EDF2EF;
+$orange: #ff9f1c;
+$turquoise: #41ead4;
+$whiteSmoke: #f7f7f7;
+$babyPowder: #fdfffc;
+$arsenic: #444;
+$aliceBlue:#79d70f;
+
+/*Resolutions*/
+$minMobileMdWidth: 360px;
+$minMobileLgWidth: 414px;
+$minTabletWidth: 768px;
+$minDesktopSmallWidth: 1024px;
+$minDesktopLargeWidth: 1366px;
+$minDesktopWideWidth: 1660px;
+$minDesktopUltraWideWidth: 1921px;
+$maxMobileSmWidth: 359.98px;
+$maxMobileWidth: 767.98px;
+$maxTabletWidth: 1023.98px;
+$maxDesktopSmallWidth: 1365.98px;
+$maxDesktopLargeWidth: 1659.98px;
+
+/* Transitions */
+$animTimingOne: 0.1s ease-in-out;
+$animTimingTwo: 0.2s ease-in-out;
+$animTimingThree: 0.3s ease-in-out;
+$animTimingFour: 0.4s ease-in-out;
+$animTimingFive: 0.5s ease-in-out;
+
+/*
+ * Media query
+ */
+@mixin mediaQueryMin($minWidth) {
+  @media only screen and (min-width: $minWidth) {
+    @content;
+  }
+}
+
+@mixin mediaQueryMax($maxWidth) {
+  @media only screen and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+@mixin mediaQueryBetween($minWidth, $maxWidth) {
+  @media only screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+/*
+ * Min
+ */
+@mixin minMobileMd {
+  @include mediaQueryMin($minMobileMdWidth) {
+    @content;
+  }
+}
+
+@mixin minMobileLarge {
+  @include mediaQueryMin($minMobileLgWidth) {
+    @content;
+  }
+}
+
+@mixin minTablet {
+  @include mediaQueryMin($minTabletWidth) {
+    @content;
+  }
+}
+
+@mixin minDesktopSmall {
+  @include mediaQueryMin($minDesktopSmallWidth) {
+    @content;
+  }
+}
+
+@mixin minDesktopLarge {
+  @include mediaQueryMin($minDesktopLargeWidth) {
+    @content;
+  }
+}
+
+@mixin minDesktopWide {
+  @include mediaQueryMin($minDesktopWideWidth) {
+    @content;
+  }
+}
+
+@mixin minDesktopUltraWide {
+  @include mediaQueryMin($minDesktopUltraWideWidth) {
+    @content;
+  }
+}
+
+/*
+ * Max
+ */
+@mixin maxMobile {
+  @include mediaQueryMax($maxMobileWidth) {
+    @content;
+  }
+}
+
+@mixin maxTablet {
+  @include mediaQueryMax($maxTabletWidth) {
+    @content;
+  }
+}
+
+@mixin maxDesktopSmall {
+  @include mediaQueryMax($maxDesktopSmallWidth) {
+    @content;
+  }
+}
+
+/*
+ * Only
+ */
+@mixin onlyMobileLarge {
+  @include mediaQueryBetween($minMobileLgWidth, $maxMobileWidth) {
+    @content;
+  }
+}
+
+@mixin onlyTablet {
+  @include mediaQueryBetween($minTabletWidth, $maxTabletWidth) {
+    @content;
+  }
+}
+
+@mixin onlyDesktopSmall {
+  @include mediaQueryBetween($minDesktopSmallWidth, $maxDesktopSmallWidth) {
+    @content;
+  }
+}
