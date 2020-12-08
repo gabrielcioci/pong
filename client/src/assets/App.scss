@@ -103,15 +103,30 @@ body {
       }
     }
 
-    h1 {
-      font-size: 4.8rem;
-      line-height: 6rem;
-      text-align: center;
+    .title {
       position: absolute;
-      top: 4rem;
-      margin: 0;
       left: 50%;
       transform: translate(-50%);
+      top: 4rem;
+      display: flex;
+      align-items: center;
+
+      .jumping-ball {
+        background: $whiteSmoke;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 1.5rem;
+        content: '';
+        animation: text-shadow 1.5s ease-in-out infinite;
+        margin-right: 2rem;
+      }
+
+      h1 {
+        font-size: 4.8rem;
+        line-height: 6rem;
+        text-align: center;
+        color: $whiteSmoke;
+      }
     }
 
     h2 {
@@ -152,6 +167,48 @@ body {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+    }
+
+    @keyframes text-shadow {
+      0% {
+        transform: translateY(0);
+        box-shadow: 0 0 0 darken($turquoise, 20%),
+        0 0 0 $turquoise,
+        0 0 0 $imperialRed,
+        0 0 0 darken($imperialRed, 20%);
+      }
+
+      20% {
+        transform: translateY(-1em);
+        box-shadow: 0 0.125em 0 darken($turquoise, 20%),
+        0 0.25em 0 $turquoise,
+        0 -0.125em 0 $imperialRed,
+        0 -0.25em 0 darken($imperialRed, 20%);
+      }
+
+      40% {
+        transform: translateY(0.5em);
+        box-shadow: 0 -0.0625em 0 darken($turquoise, 20%),
+        0 -0.125em 0 $turquoise,
+        0 0.0625em 0 $imperialRed,
+        0 0.125em 0 darken($imperialRed, 20%);
+      }
+
+      60% {
+        transform: translateY(-0.25em);
+        box-shadow: 0 0.03125em 0 darken($turquoise, 20%),
+        0 0.0625em 0 $turquoise,
+        0 -0.03125em 0 $imperialRed,
+        0 -0.0625em 0 darken($imperialRed, 20%);
+      }
+
+      80% {
+        transform: translateY(0);
+        box-shadow: 0 0 0 darken($turquoise, 20%),
+        0 0 0 $turquoise,
+        0 0 0 $imperialRed,
+        0 0 0 darken($imperialRed, 20%);
+      }
     }
   }
 

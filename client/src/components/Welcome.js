@@ -38,7 +38,10 @@ const Welcome = (props) => {
 
     return (
         <div className="welcome-screen">
-            <h1>Pong</h1>
+            <div className="title">
+                <div className="jumping-ball"/>
+                <h1>Pong</h1>
+            </div>
             <div className="rooms">
                 <h2>Username</h2>
                 <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}
