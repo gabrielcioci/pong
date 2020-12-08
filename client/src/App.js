@@ -14,8 +14,9 @@ function App() {
             <Router>
                 <div className="App">
                     <section>
-                        <Route path="/" exact component={(props)=> <Welcome {...props} socket={socket}/>}/>
-                        <Route path="/game" exact component={(props)=> <PongRoom {...props} socket={socket}/>}/>
+                        <Route path="/" exact component={(props) => <Welcome {...props} socket={socket}/>}/>
+                        <Route path="/rooms/" exact
+                               component={(props) => <PongRoom {...props} socket={socket}/>}/>
                     </section>
                 </div>
             </Router>

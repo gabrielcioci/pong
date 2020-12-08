@@ -12,7 +12,6 @@ const PongRoom = (props) => {
     const [ballY, setBallY] = useState(0)
     const [p1Score, setP1Score] = useState(0)
     const [p2Score, setP2Score] = useState(0)
-
     const startGame = () => {
 
         // Bind paddle to UP/DOWN arrows
@@ -55,6 +54,7 @@ const PongRoom = (props) => {
             setPlaying(true)
         })
 
+        // Winner
         socket.on("winner", ({player}) => {
             setPlaying(false)
             if (player === 'p1')
@@ -87,12 +87,16 @@ const PongRoom = (props) => {
             setP2Score(s2)
         })
 
+        // Other player disconnected
         socket.on("otherPlayerDisconnect", () => {
-            alert("Other player disconnected. Redirecting to lobby.")
-            props.history.push(`/`)
+            setTimeout(() => {
+                alert("Other player disconnected. Redirecting to lobby.")
+                props.history.push(`/`)
+            }, 1000)
         })
+
+        // On disconnect turn socket off
         return () => {
-            socket.emit('disconnect', {room})
             socket.off()
         }
     }, [])

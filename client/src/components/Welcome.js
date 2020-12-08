@@ -13,7 +13,7 @@ const Welcome = (props) => {
                     alert(error);
                 }
             })
-            props.history.push(`/game?room=${room}&username=${username}`)
+            props.history.push(`/rooms?room=${room}&username=${username}`)
         }
     }
     const handleJoinRoom = (room) => {
@@ -23,12 +23,11 @@ const Welcome = (props) => {
                     alert(error);
                 }
             })
-            props.history.push(`/game?room=${room}&username=${username}`)
+            props.history.push(`/rooms?room=${room}&username=${username}`)
         } else alert('Username is required.')
 
     }
     useEffect(() => {
-        socket.emit('getRooms')
         socket.on('availableRooms', ({gameRooms}) => {
             setRooms(gameRooms)
         })

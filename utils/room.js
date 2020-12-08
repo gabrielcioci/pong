@@ -47,6 +47,7 @@ const handleRoom = (client, io, gameRooms) => {
             players: currentRoom.players,
             ball, p1, p2
         })
+        io.emit("availableRooms", ({gameRooms}))
         callback();
     })
     // Move paddle with keys
@@ -59,14 +60,16 @@ const handleRoom = (client, io, gameRooms) => {
             io.to(room).emit("player2Moved", {y: p2.y})
         }
     })
-    // Rooms list
-    client.on("getRooms", () => {
-        client.emit("availableRooms", ({gameRooms}))
-    })
+
     // Player disconnect
-    client.on('disconnect', ({room}) => {
-        console.log(room)
-        //client.emit("otherPlayerDisconnect", ({gameRooms}))
+    client.on('disconnect', () => {
+        if (getRoomByUserID(client.id, gameRooms)) {
+            let {name, players} = getRoomByUserID(client.id, gameRooms)
+            if (players.length > 1)
+                io.to(name).emit("otherPlayerDisconnect")
+            deleteRoom({gameRooms, room: name})
+            io.emit("availableRooms", ({gameRooms}))
+        }
     })
 }
 
