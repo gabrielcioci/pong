@@ -1,5 +1,5 @@
-const {ball_radius, ball_velocity_x, ball_velocity_y, ball_speed, paddleTopStart, playerTwoX, playerOneX, paddleHeight, paddleWidth, tableYCenter, tableXCenter, tableHeight, tableWidth} = require('./constants')
-const resetPositions = (ball, p1, p2) => {
+const {ball_radius, ball_velocity_y, ball_speed, paddleTopStart, paddleHeight, paddleWidth, tableYCenter, tableXCenter, tableHeight, tableWidth} = require('./constants')
+const resetPositions = (ball, p1, p2, io, room) => {
     // Reset ball position
     ball.x = tableXCenter - ball_radius
     ball.y = tableYCenter - ball_radius
@@ -9,17 +9,22 @@ const resetPositions = (ball, p1, p2) => {
     // Reset players position
     p1.y = paddleTopStart
     p2.y = paddleTopStart
+
+    // Emit players new positions
+    io.to(room).emit("p1Moved", {y: p1.y})
+    io.to(room).emit("p2Moved", {y: p2.y})
 }
-const movePaddle = (player, direction) => {
+const movePaddle = (player, direction, io, room) => {
     if (direction === 'up')
-        if (player.y - 10 > 0)
-            player.y -= 10
+        if (player.y - 15 > 0)
+            player.y -= 15
         else player.y = 0
     else {
-        if (player.y + paddleHeight + 10 < tableHeight)
-            player.y += 10
+        if (player.y + paddleHeight + 15 < tableHeight)
+            player.y += 15
         else player.y = tableHeight - paddleHeight
     }
+    io.to(room).emit(`${player.name}Moved`, {y: player.y})
 }
 const checkForCollision = (player, ball, io, room) => {
 
@@ -53,29 +58,43 @@ const checkForCollision = (player, ball, io, room) => {
 }
 
 const startGame = (room, p1, p2, ball, io) => {
+    let playing = true
     setInterval(() => {
-        ball.x += ball.vx
-        ball.y += ball.vy
-        let player = (ball.x < tableXCenter) ? p2 : p1
-        checkForCollision(player, ball, io, room)
-        if (ball.x < 0) {
-            // Player 1 scored
-            p1.score += 1
-            io.to(room).emit("scored", {s1: p1.score, s2: p2.score})
-            resetPositions(ball, p1, p2)
-        } else if ((ball.x + 2 * ball_radius) > tableWidth) {
-            // Player 2 scored
-            p2.score += 1
-            io.to(room).emit("scored", {s1: p1.score, s2: p2.score})
-            resetPositions(ball, p1, p2)
+        if (playing) {
+            ball.x += ball.vx
+            ball.y += ball.vy
+            let player = (ball.x < tableXCenter) ? p2 : p1
+            console.log(player)
+            checkForCollision(player, ball, io, room)
+            if (ball.x < 0) {
+                // Player 1 scored
+                p1.score += 1
+                io.to(room).emit("scored", {s1: p1.score, s2: p2.score})
+                resetPositions(ball, p1, p2, io, room)
+                playing = false
+                setTimeout(() => {
+                    playing = true
+                }, 1500)
+            } else if ((ball.x + 2 * ball_radius) > tableWidth) {
+                // Player 2 scored
+                p2.score += 1
+                io.to(room).emit("scored", {s1: p1.score, s2: p2.score})
+                resetPositions(ball, p1, p2, io, room)
+                playing = false
+                setTimeout(() => {
+                    playing = true
+                }, 1500)
+            }
+            if (p1.score === 5) {
+                io.to(room).emit("winner", {player: 'p1'})
+                playing = false
+            } else if (p2.score === 5) {
+                io.to(room).emit("winner", {player: 'p2'})
+                playing = false
+            }
+            io.to(room).emit("ballMoved", {bx: ball.x, by: ball.y})
         }
-        if (p1.score === 5)
-            io.to(room).emit("winner", {player: 'p1'})
-        else if (p2.score === 5)
-            io.to(room).emit("winner", {player: 'p2'})
-
-        io.to(room).emit("ballMoved", {bx: ball.x, by: ball.y})
-    }, 30)
+    }, 15)
 }
 
 module.exports = {resetPositions, movePaddle, startGame}

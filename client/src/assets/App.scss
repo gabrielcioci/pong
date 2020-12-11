@@ -45,14 +45,14 @@ body {
     border-radius: .4rem;
     transition: all $animTimingTwo;
     cursor: pointer;
-    border: .2rem solid $orange;
+    border: .1rem solid $orange;
     outline: none;
     text-align: center;
     width: fit-content;
     text-decoration: none;
 
     &:hover {
-      background: $orange;
+      background: rgba($orange, .3);
       color: $babyPowder;
     }
   }
@@ -60,7 +60,7 @@ body {
   .btn-turquoise {
     background: rgba($turquoise, .1);
     color: $turquoise;
-    border: .2rem solid $turquoise;
+    border: .1rem solid $turquoise;
 
     &:hover {
       background: rgba($turquoise, .3);
@@ -71,12 +71,26 @@ body {
   .btn-green {
     background: rgba($aliceBlue, .1);
     color: $aliceBlue;
-    border: .2rem solid $aliceBlue;
+    border: .1rem solid $aliceBlue;
 
     &:hover {
       background: rgba($aliceBlue, .3);
       color: $babyPowder;
     }
+  }
+
+  .btn-small {
+    line-height: 2.4rem;
+    font-size: 1.4rem;
+    padding: 0 1.2rem;
+    margin-left: auto;
+    font-weight: 400;
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  .btn-full {
+    width: 100%;
   }
 
   .welcome-screen {
@@ -89,10 +103,14 @@ body {
       margin-top: 1.2rem;
       background: rgba(white, .05);
       padding: 0 1.6rem;
-      color: $babyPowder;
+      color: $turquoise;
       border: .1rem solid transparent;
       border-radius: .8rem;
       transition: all $animTimingTwo;
+
+      &::placeholder {
+        color: white;
+      }
 
       &:hover {
         border-color: rgba(white, .1);
@@ -100,6 +118,7 @@ body {
 
       &:focus {
         border-color: $turquoise;
+        box-shadow: 0 0 .8rem 0 rgba($turquoise, .2);
       }
     }
 
@@ -132,13 +151,23 @@ body {
     h2 {
       text-align: left;
       margin: 0;
+      display: flex;
+      align-items: center;
     }
 
-    .rooms {
+    .rooms-available {
       display: flex;
       flex-direction: column;
       min-width: 30rem;
-      margin-right: 6.8rem;
+
+      p {
+        text-align: center;
+        margin-top: 2.4rem;
+        color: $babyPowder;
+        opacity: .2;
+        font-size: 1.6rem;
+        line-height: 2.4rem;
+      }
 
       .room {
         display: flex;
@@ -166,7 +195,6 @@ body {
     .create {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
     }
 
     @keyframes text-shadow {
@@ -255,26 +283,11 @@ body {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
-        .ready {
-          line-height: 2.4rem;
-          font-size: 1.4rem;
-          padding: 0 1.2rem;
-          margin-right: 1.6rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all .1s ease-in-out;
-        }
       }
 
       .player-two {
         color: $imperialRed;
         justify-content: flex-start;
-
-        .ready {
-          margin-left: 1.6rem;
-          margin-right: 0;
-        }
       }
 
       h1 {
@@ -291,18 +304,21 @@ body {
       .p2-paddle, .p1-paddle, .ball, .divider {
         content: '';
         display: flex;
-        background: $imperialRed;
         position: absolute;
         transition: all .1s ease-in-out;
+        box-sizing: border-box;
       }
 
       .p1-paddle {
         background: $turquoise;
         border-radius: .8rem;
+        box-shadow: 0 0 .8rem 0 rgba($turquoise, .6);
       }
 
       .p2-paddle {
+        background: $imperialRed;
         border-radius: .8rem;
+        box-shadow: 0 0 .8rem 0 rgba($imperialRed, .8);
       }
 
       .ball {
